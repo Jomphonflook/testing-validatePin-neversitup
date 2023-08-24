@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   validatePin(pin: any): any {
-    const cleanedPin = pin.trim();
+    let cleanedPin = pin.trim();
     const result = /^[0-9]{6,}$/.test(cleanedPin);
     if (!result) {
       return "pin less than 6 or invalid pin number"
@@ -18,6 +18,10 @@ export class AppService {
       }
 
       if (cleanedPin[i] == cleanedPin[i + 1] - 1 && cleanedPin[i] == cleanedPin[i + 2] - 2) {
+        return "เลขเรียงกันเกิน 2 ตัว"
+      }
+
+      if (cleanedPin[i] == Number(cleanedPin[i + 1]) + 1 && cleanedPin[i] == Number(cleanedPin[i + 2]) + 2){
         return "เลขเรียงกันเกิน 2 ตัว"
       }
 
